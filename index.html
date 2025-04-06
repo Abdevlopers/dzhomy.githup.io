@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DZHomy - منصة العقارات</title>
+<style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #222;
+    }
+    /* From Uiverse.io by muhammad_1180 */ 
+.background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #0072ff 100%);
+  z-index: -10;
+}
+
+    header {
+      background: white;
+      background: radial-gradient(125% 125% at 50% 10%, #0072ff 40%, #fff 100%);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      align-items: center;
+      font-size: 1.5rem;
+      height: 50px;
+    }
+    .logo {
+      background: white;
+      background: radial-gradient(125% 125% at 0% 20%, #0072ff 40%, #fff 50%);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      width: 150px;
+      height: 150px;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      
+      border-radius: 50%;
+
+    }
+    .logo img{
+      width: 150px;
+      height: 150px;
+    }
+    .logo_txt{
+      margin-top: -40px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background-color: #fff;
+      padding: 0.5rem;
+      height: 10px;
+    }
+    nav button {
+      width: 131px;
+      height: 51px;
+      margin-top: -40px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      background: linear-gradient(to bottom right,#2e8eff 0%,rgba(46, 142, 255, 0) 30%);
+      background-color: rgba(46, 142, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    nav button:hover{
+      background-color: rgba(46, 142, 255, 0.7);
+      box-shadow: 0 0 10px rgba(46, 142, 255, 0.5);
+     outline: none;
+    }
+    section {
+      display: none;
+      padding: 2rem;
+    }
+    section.active {
+      display: block;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button.submit {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #ccc;
+      margin-top: 2rem;
+    }
+  </style>
+  <style>
+
+/* بطاقات الإعلانات */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background-color: #fff;
+  padding: 1rem;
+  max-width: 350px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.card h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+.card p {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+.info_txt{
+  font-size: 10px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  text-align: left;
+  color: red;
+}
+.card .social, .card .views {
+  margin-top: 0.5rem;
+  font-size: 13px;
+  color: #666;
+}
+form input, form button {
+  background-color: #fff;
+  padding: 1rem;
+  padding-right: 3rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 280px;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+form button {
+  background: #008cba;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+form button:hover {
+  background: #007299;
+}
+
+</style>
+</head>
+<body>
+  <!-- From Uiverse.io by muhammad_1180 --> 
+<div class="background"></div>
+
+<header>
+  <div class="logo"><img src="img/logo.png"></div>
+  <div class="logo_txt">DZHomy - منصة العقارات</div>
+</header>
+<nav>
+
+<button onclick="showSection('login')" class="logout-btn">تسجيل الدخول</button>
+<button onclick="showSection('register')" class="register-btn">إنشاء حساب</button>
+<button onclick="showSection('profile')">ملفي</button>
+<button onclick="showSection('ads')">إعلاناتي</button>
+<button onclick="showSection('properties')">العقارات</button>
+<button onclick="showSection('contact')">تواصل معنا</button>
+<button id="logoutBtn" onclick="logout()" style="display:none;">تسجيل الخروج</button></nav>
+<main>
+
+<!-- 🔍 واجهة البحث المتقدم -->
+<section class="filters" style="padding: 20px; background: #f9f9f9;">
+  <h2>ابحث عن بيت أحلامك</h2>
+  <form id="advancedSearchForm" style="display: block; flex-wrap: wrap; gap: 10px;">
+    <input type="text" placeholder="المدينة" name="city" style="flex: 1;" />
+    <input type="number" placeholder="السعر الأدنى" name="minPrice" style="flex: 1;" />
+    <input type="number" placeholder="السعر الأقصى" name="maxPrice" style="flex: 1;" />
+    <select name="type" style="flex: 1;">
+      <option value="">نوع العقار</option>
+      <option value="شقة">شقة</option>
+      <option value="فيلا">فيلا</option>
+      <option value="منزل">منزل</option>
+    </select>
+    <button type="submit">بحث</button>
+  </form>
+</section>
+
+<section class="card active" id="login">
+<h2>تسجيل الدخول</h2>
+<form id="loginForm">
+<input name="email" placeholder="البريد الإلكتروني" required="" type="email"/>
+<input name="password" placeholder="كلمة المرور" required="" type="password"/>
+<div class="info_txt" id="info_txt" style="display:none;">enter you information </div>
+<button class="submit" type="submit">دخول</button>
+</form>
+</section>
+<section class="card" id="register">
+<h2>إنشاء حساب</h2>
+<form id="registerForm">
+
+<input name="name" placeholder="الاسم" required="" type="text"/>
+<input name="email" placeholder="البريد الإلكتروني" required="" type="email"/>
+<input name="password" placeholder="كلمة المرور" required="" type="password"/>
+<button class="submit" type="submit">تسجيل</button>
+
+</form>
+</section>
+<section class="card" id="profile">
+<h2>الملف الشخصي</h2>
+<div id="profileInfo">يتم التحميل...</div>
+</section>
+<section class="card" id="ads">
+<h2>لوحة التحكم - إعلاناتي</h2>
+<div id="myAdsList"></div>
+
+<h3>نشر إعلان جديد</h3>
+<form id="createAdForm">
+<input name="title" placeholder="عنوان الإعلان" required="" type="text"/>
+<input name="location" placeholder="الموقع" required="" type="text"/>
+<input name="price" placeholder="السعر بالدينار" required="" type="number"/>
+<input name="phone" placeholder="رقم الهاتف" required="" type="text"/>
+<input name="image" placeholder="رابط صورة العقار" required="" type="file"/>
+<input name="social" placeholder="رابط تواصلك (فيسبوك أو واتساب)" type="text"/>
+<button class="submit" type="submit">نشر الإعلان</button>
+</form>
+<div id="myAdsList"></div>
+</section>
+<section class="card" id="properties">
+<h2>عقارات معروضة</h2>
+<div class="cards" id="allAdsList"></div>
+</section>
+<section class="card" id="contact">
+<h2>تواصل معنا</h2>
+<form>
+<input placeholder="اسمك" required="" type="text"/>
+<input placeholder="البريد الإلكتروني" required="" type="email"/>
+<textarea placeholder="رسالتك..." style="width:100%;height:100px;"></textarea>
+<button class="submit" type="submit">إرسال</button>
+</form>
+</section>
+</main>
+<footer>جميع الحقوق محفوظة © DZHomy 2025</footer>
+<script>
+  const showSection = (id) => {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  };
+
+  document.getElementById("loginForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const info = document.getElementById("info_txt");
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      info.style.display = "block";
+      info.style.color = "green";
+      info.textContent = "✅ تم تسجيل الدخول بنجاح";
+      alert("تم تسجيل الدخول بنجاح");
+      showSection("profile");
+      loadProfile();
+      loadUserAds();
+    } else {
+      info.style.display = "block";
+      info.style.color = "red";
+      info.textContent = "❌ اسم المستخدم أو كلمة المرور غير صحيحة";
+
+    }
+  });
+
+  document.getElementById("registerForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.some(u => u.email === email)) {
+      alert("البريد مستخدم من قبل");
+      return;
+    } 
+    const newUser = { name, email, password };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("loggedInUser", JSON.stringify(newUser));
+    alert("تم إنشاء الحساب");
+    showSection("profile");
+    loadProfile();
+  });
+
+  function loadProfile() {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) return;
+    document.getElementById("profileInfo").innerHTML = `
+      <p><strong>الاسم:</strong> ${user.name}</p>
+      <p><strong>البريد:</strong> ${user.email}</p>
+      <button class="submit" onclick="logout()">تسجيل الخروج</button>
+    `;
+  }
+
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    alert("تم تسجيل الخروج");
+    showSection("login");
+  }
+
+  function loadUserAds() {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const allAds = JSON.parse(localStorage.getItem("ads") || "[]");
+    const myAds = allAds.filter(ad => ad.email === user.email);
+    const container = document.getElementById("myAdsList");
+    container.innerHTML = myAds.map(ad => `
+      <div style="border:1px solid #ccc; padding:1rem; margin-bottom:1rem;">
+        <h4>${ad.title}</h4>
+        <p>${ad.description}</p>
+      </div>
+    `).join("") || "لا توجد إعلانات";
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (user) {
+      loadProfile();
+      loadUserAds();
+    }
+  });
+</script>
+<section class="section" id="allAds"><h2>جميع الإعلانات</h2><div class="cards" id="adsContainer"></div></section><section class="section" id="addAd"><form id="adForm"><h2>إضافة إعلان عقار</h2><input placeholder="عنوان العقار" type="text"/><textarea placeholder="وصف العقار"></textarea><input placeholder="رقم الهاتف" type="text"/><input placeholder="رابط الصورة" type="url"/><button type="submit">نشر الإعلان</button></form></section><script>
+function showSection(id) {
+  document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}
+window.onload = function() {
+  showSection("home");
+  const isLoggedIn = localStorage.getItem("userLoggedIn");
+  if (isLoggedIn) {
+    document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+    document.querySelectorAll(".logout-btn").forEach(btn => btn.style.display = "inline-block");
+  }
+};
+</script><script>
+function login(email, password) {
+  const stored = JSON.parse(localStorage.getItem("users") || "[]");
+  const found = stored.find(u => u.email === email && u.password === password);
+  if (found) {
+    localStorage.setItem("userLoggedIn", email);
+    alert("تم تسجيل الدخول بنجاح");
+    location.reload();
+  } else {
+    alert("بيانات غير صحيحة");
+  }
+}
+function register(email, password) {
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  if (users.find(u => u.email === email)) return alert("الحساب موجود مسبقًا");
+  users.push({ email, password });
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("تم إنشاء الحساب. قم بتسجيل الدخول.");
+  showSection("login");
+}
+function logout() {
+  localStorage.removeItem("userLoggedIn");
+  location.reload();
+}
+</script><script>
+
+document.getElementById("adForm")?.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const title = this.querySelector("input[placeholder='عنوان العقار']").value;
+  const desc = this.querySelector("textarea").value;
+  const phone = this.querySelector("input[placeholder='رقم الهاتف']").value;
+  const fileInput = this.querySelector("input[type='file']");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("يرجى اختيار صورة");
+    return;
+  }
+
+  try {
+    const fileName = Date.now() + "_" + file.name;
+    const storageRef = storage.ref("ads/" + fileName);
+    
+    // رفع الصورة
+    await storageRef.put(file);
+    const downloadURL = await storageRef.getDownloadURL();
+
+    // إنشاء الإعلان
+    const ad = { title, desc, phone, img: downloadURL, views: 0, likes: 0 };
+    const ads = JSON.parse(localStorage.getItem("ads") || "[]");
+    ads.push(ad);
+    localStorage.setItem("ads", JSON.stringify(ads));
+
+    alert("✅ تم نشر الإعلان بنجاح");
+    this.reset(); // إعادة تعيين النموذج
+    renderAds();
+
+  } catch (error) {
+    console.error("❌ خطأ في رفع الصورة:", error);
+    alert("حدث خطأ أثناء رفع الصورة");
+  }
+});
+
+function renderAds() {
+  const ads = JSON.parse(localStorage.getItem("ads") || "[]");
+  const container = document.getElementById("adsContainer");
+  if (!container) return;
+  container.innerHTML = "";
+
+  ads.forEach(ad => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${ad.img}" alt="عقار" />
+      <h3>${ad.title}</h3>
+      <p>${ad.desc}</p>
+      <a>📞 ${ad.phone}</a>
+      <p>👁️ ${ad.views} | ❤️ ${ad.likes}</p>
+      <div class="social-icons">
+        <a href="#"><i class="bx bxl-facebook"></i></a>
+        <a href="#"><i class="bx bxl-whatsapp"></i></a>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// عرض الإعلانات عند تحميل الصفحة
+window.addEventListener("load", renderAds);
+window.onload = function() {
+  renderAds();
+};
+</script>  <script>
+
+// مصادقة تسجيل الدخول والخروج
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    alert("تم تسجيل الخروج.");
+    window.location.reload();
+}
+
+// إخفاء/إظهار الأزرار بناءً على حالة الدخول
+window.onload = () => {
+    const user = localStorage.getItem("loggedInUser");
+    if (user) {
+        document.getElementById("logoutBtn").style.display = "inline-block";
+        if (document.getElementById("loginBtn")) document.getElementById("loginBtn").style.display = "none";
+        if (document.getElementById("signupBtn")) document.getElementById("signupBtn").style.display = "none";
+    }
+};
+
+// نشر الإعلان (تخزين في localStorage)
+document.addEventListener("DOMContentLoaded", () => {
+    const adForm = document.getElementById("createAdForm");
+    if (adForm) {
+        adForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const ad = {
+                title: this.title.value,
+                location: this.location.value,
+                price: this.price.value,
+                phone: this.phone.value,
+                image: this.image.value,
+                social: this.social.value,
+                views: 0,
+                likes: 0
+            };
+            const ads = JSON.parse(localStorage.getItem("ads") || "[]");
+            ads.push(ad);
+            localStorage.setItem("ads", JSON.stringify(ads));
+            alert("تم نشر الإعلان بنجاح.");
+            this.reset();
+            displayMyAds();
+            displayAllAds();
+        });
+    }
+
+    displayMyAds();
+    displayAllAds();
+});
+
+function displayMyAds() {
+    const myAdsList = document.getElementById("myAdsList");
+    if (!myAdsList) return;
+    const ads = JSON.parse(localStorage.getItem("ads") || "[]");
+    myAdsList.innerHTML = ads.map(ad => adCard(ad)).join("");
+}
+
+function displayAllAds() {
+    const allAdsList = document.getElementById("allAdsList");
+    if (!allAdsList) return;
+    const ads = JSON.parse(localStorage.getItem("ads") || "[]");
+    allAdsList.innerHTML = ads.map(ad => adCard(ad)).join("");
+}
+
+function adCard(ad) {
+    return `
+    <div class="card">
+        <img src="${ad.image}" alt="عقار">
+        <h4>${ad.title}</h4>
+        <p>📍 ${ad.location} — 💰 ${ad.price} دج</p>
+        <p class="social">📞 ${ad.phone} | 🌐 ${ad.social || "—"}</p>
+        <p class="views">👁️ ${ad.views} | ❤️ ${ad.likes}</p>
+    </div>`;
+}
+
+</script>
+
+<script>
+let verificationCode = "";
+document.addEventListener("DOMContentLoaded", () => {
+  const sendCodeBtn = document.getElementById("sendCodeBtn");
+  const verifyInput = document.getElementById("verificationCode");
+  const registerBtn = document.getElementById("registerBtn");
+
+  if (sendCodeBtn && verifyInput && registerBtn) {
+    sendCodeBtn.addEventListener("click", () => {
+      verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      alert("📩 تم إرسال رمز التحقق إلى بريدك: " + verificationCode);
+    });
+
+    verifyInput.addEventListener("input", () => {
+      if (verifyInput.value === verificationCode) {
+        registerBtn.disabled = false;
+      } else {
+        registerBtn.disabled = true;
+      }
+    });
+  }
+});
+</script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBQ5qNIYzVc2TZmwTCqaDfyUwWJeg0mx1o",
+    authDomain: "dzhomy-d4e20.firebaseapp.com",
+    projectId: "dzhomy-d4e20",
+    storageBucket: "dzhomy-d4e20.firebasestorage.app",
+    messagingSenderId: "78551474615",
+    appId: "1:78551474615:web:795294795a4c06b4080832",
+    measurementId: "G-LVJ74NM59L"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth();
+  const db = getFirestore();
+
+  // Example: Handle registration (replace this with your actual form logic)
+  window.registerUser = async function(email, password) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("تم التسجيل بنجاح");
+    } catch (error) {
+      alert("خطأ في التسجيل: " + error.message);
+    }
+  };
+
+  // Example: Handle login
+  window.loginUser = async function(email, password) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("تم تسجيل الدخول");
+    } catch (error) {
+      alert("خطأ في تسجيل الدخول: " + error.message);
+    }
+  };
+
+  // Monitor auth state
+  onAuthStateChanged(auth, (user) => {
+    const loggedIn = document.querySelectorAll('.logged-in');
+    const loggedOut = document.querySelectorAll('.logged-out');
+    if (user) {
+      loggedIn.forEach(el => el.style.display = 'block');
+      loggedOut.forEach(el => el.style.display = 'none');
+    } else {
+      loggedIn.forEach(el => el.style.display = 'none');
+      loggedOut.forEach(el => el.style.display = 'block');
+    }
+  });
+</script>
+
+</body>
+</html>
